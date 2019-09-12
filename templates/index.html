@@ -1,0 +1,46 @@
+{% extends 'base.html'%}
+
+{% block title %} Index {% endblock %}
+{% block stylsheet %} {% endblock %}
+{% block content %}
+
+    <div class="">
+      {% for message in messages %}
+          <div class="alert alert-danger">
+            <a class="close" href="#" data-dismiss="alert">x</a>
+            {{ message }}
+          </div>
+        {% endfor %}
+        <br>
+
+      <center><a href="/create" class="btn btn-primary">Add New Record</a></center>
+      <br><br>
+    </div>
+    <table class='table table-bordered' id="emptable" data-page-length="5">
+      <thead class='table-dark'>
+        <tr>
+          <td>Id</td>
+          <td>Name</td>
+          <td>Email</td>
+          <td>Actions</td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for emp in employees %}
+        <tr>
+          <td>{{emp.id}}</td>
+          <td>{{emp.name}}</td>
+          <td>{{emp.email}}</td>
+          <td>
+          <a href="/edit/{{ emp.id }}">Edit </a><br>
+          <a href="/delete/{{ emp.id }}">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+{% endblock %}
+
+  </body>
+</html>

@@ -1,0 +1,10 @@
+.fullwidth{
+  width:80%;
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+.darkhead{
+  background-color: black;
+  color:white;
+}

@@ -1,0 +1,71 @@
+from django.db import models
+
+class Employee(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField("Employee Name", max_length=100)
+    email = models.EmailField("Email Address", max_length=100)
+    dob = models.DateTimeField("Date of Birth")
+    salary = models.FloatField("Monthly Salary")
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = "employees"
+
+python manage.py makemigrations
+
+3.17 Pagination
+
+===========================================
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+
+<br>
+{% if employees.has_other_pages %}
+  <ul class="pagination justify-content-left">
+    {% if employees.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ employees.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="page-item disabled"><a class="page-link" href="#"><span>&laquo;</span></a></li>
+    {% endif %}
+    {% for i in employees.paginator.page_range %}
+      {% if employees.number == i %}
+        <li class="page-item active"><a class="page-link" href="#">{{ i }} <span class="sr-only">(current)</span></a></li>
+      {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if employees.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ employees.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="page-item disabled"><a class="page-link" href="#"><span>&raquo;</span></a></li>
+    {% endif %}
+  </ul>
+{% endif %}
+<hr/>
+
+    <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-left">
+      {% if employees.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ employees.previous_page_number }}">&laquo;</a></li>
+      {% else %}
+      <li class="page-item disabled"><a class="page-link" href="#"><span>&laquo;</span></a></li>
+      {% endif %}
+      {% for i in employees.paginator.page_range %}
+      {% if employees.number == i %}
+      <li class="page-item active"><a class="page-link" href="#">{{ i }} <span class="sr-only">(current)</span></a></li>
+      {% else %}
+      <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+      {% endfor %}
+      {% if employees.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ employees.next_page_number }}">&raquo;</a></li>
+      {% else %}
+      <li class="page-item disabled"><a class="page-link" href="#"><span>&raquo;</span></a></li>
+      {% endif %}
+    </ul>
+    </nav>
+
+<br>
+<center><a href="/create" class="btn btn-primary">Add New Record</a></center>
+</body>
